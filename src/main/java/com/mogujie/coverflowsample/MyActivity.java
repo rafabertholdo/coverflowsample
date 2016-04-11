@@ -99,7 +99,16 @@ public class MyActivity extends Activity {
         findViewById(R.id.change_bitmap_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.changeBitmap();
+                // specify an adapter (see also next example)
+
+                ArrayList<Hero> filteredHeroes = new ArrayList<Hero>();
+                for (Hero  hero : heroList) {
+                    if (hero.getName().contains("mage")){
+                        filteredHeroes.add(hero);
+                    }
+                }
+
+                adapter.changeBitmap(filteredHeroes);
             }
         });
     }

@@ -21,8 +21,9 @@ public class MyCoverFlowAdapter extends CoverFlowAdapter {
         this.mData = data;
     }
 
-    public void changeBitmap() {
+    public void changeBitmap(List<Hero> newData) {
         dataChanged = true;
+        mData = newData;
 
         notifyDataSetChanged();
     }
@@ -34,11 +35,17 @@ public class MyCoverFlowAdapter extends CoverFlowAdapter {
 
     @Override
     public Bitmap getImage(final int position) {
+        Hero hero = mData.get(position);
+        if(hero != null){
+            String heroName = mData.get(position).getName().replace("npc_dota_hero_","");
+            int id = mContext.getResources().getIdentifier(heroName + "_vert", "drawable", mContext.getPackageName());
 
-        String heroName = mData.get(position).getName().replace("npc_dota_hero_","");
-        int id = mContext.getResources().getIdentifier(heroName + "_vert", "drawable", mContext.getPackageName());
+            Bitmap bm = BitmapFactory.decodeResource(mContext.getResources(), id);
+            return bm;
+        }else
+        {
+            return null;
+        }
 
-        Bitmap bm = BitmapFactory.decodeResource(mContext.getResources(), id);
-        return bm;
     }
 }
